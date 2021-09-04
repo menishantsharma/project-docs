@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import SignUp from "./components/Auth/SignUp";
 import Login from "./components/Auth/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -12,6 +17,13 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/" exact>
+          {isAuthenticated ? (
+            <Redirect to="/dashboard" />
+          ) : (
+            <Redirect to="/signup" />
+          )}
+        </Route>
         {!isAuthenticated && (
           <Route path="/signup" exact>
             <SignUp />

@@ -18,15 +18,17 @@ const ViewDocument = () => {
 
   const deleteDocumentHandler = (e) => {
     setLoading(true);
-    dispatch(deleteDocument(e.target.id));
     setTimeout(() => {
+      dispatch(deleteDocument(id));
       setLoading(false);
+      history.push("/dashboard");
     }, 5000);
   };
   return (
     <>
-      {!document && <p>No such document exist</p>}
-      {document && (
+      {isLoading && <p>Loading...</p>}
+      {!document && !isLoading && <p>No such document exist</p>}
+      {document && !isLoading && (
         <div>
           <h2>{document.title}</h2>
           <p>{document.body}</p>
